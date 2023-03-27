@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Combo {
 
-    static  BigInteger[] finalArr;
+    static BigInteger[] finalArr;
     static int num;
     static BigInteger finalAns = BigInteger.ZERO;
 
@@ -44,10 +44,12 @@ public class Combo {
             }
             finalArr[i]=BigInteger.valueOf(counter);
         }
+
+        System.out.println("\\begin{array}{l} ");
         generateArr(num,num,new ArrayList<Integer>());
 
-        System.out.println();
-        System.out.println("ANS:"+finalAns);
+        System.out.println("\\text{Ans}:"+finalAns);
+        System.out.println("\\end{array}");
     }
 
     public static BigInteger factorial(BigInteger n){
@@ -118,7 +120,7 @@ public class Combo {
         if(max==1){
             arr.add(0,total);
             arr.add(0,0);
-            finalAns = finalAns.add(print(arr.stream().mapToInt(Integer::intValue).toArray()));
+            finalAns = finalAns.add(printTeX(arr.stream().mapToInt(Integer::intValue).toArray()));
         }else{
             for(int i=0;i*max<=total;i++){
                 ArrayList<Integer> arrTemp = (ArrayList<Integer>) arr.clone();
@@ -127,4 +129,50 @@ public class Combo {
             }
         }
     }
+
+    public static BigInteger printTeX(int arr[]){
+        BigInteger ans = BigInteger.ONE;
+        String str = "\\text{Case} \\ ";
+        for(int i = 1;i<arr.length;i++){
+            for(int j = 0; j<arr[i];j++){
+                str+=i+"-";
+            }
+        }
+        str = str.substring(0,str.length()-1) +": ";
+        int counter = 0;
+        for(int i=arr.length-1;i>0;i--){
+            if(arr[i]!=0){
+                if(i>= finalArr.length){
+                    return BigInteger.ZERO;
+                } else {
+                    if(arr[i]>finalArr[i].intValue()-counter){
+                        return BigInteger.ZERO;
+                    }else {
+                        str+="{"+(finalArr[i].intValue()-counter)+"\\choose"+arr[i]+"}"+" \\times ";
+                        ans = ans.multiply(combo(BigInteger.valueOf((finalArr[i].intValue()-counter)),BigInteger.valueOf(arr[i])));
+                        counter+=arr[i];
+                    }
+                }
+            }
+
+
+        }
+        int total =0;
+        for(int i = 1;i<arr.length;i++){
+            total+=arr[i]*i;
+        }
+        str += "\\frac{"+total+"!}{";
+        ans = ans.multiply(factorial(BigInteger.valueOf(total)));
+        for(int i = 1;i<arr.length;i++){
+            for(int j = 0; j<arr[i];j++){
+                str+=i+"!";
+                ans = ans.divide(factorial(BigInteger.valueOf(i)));
+            }
+        }
+        str += "}=";
+        str += ans + "\\\\";
+        System.out.println(str);
+        return ans;
+    }
+
 }
