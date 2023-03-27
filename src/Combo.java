@@ -44,7 +44,7 @@ public class Combo {
             }
             finalArr[i]=BigInteger.valueOf(counter);
         }
-
+        System.out.println("The output is in LaTeX. One may preview it on: https://www.latexlive.com/");
         System.out.println("\\begin{array}{l} ");
         generateArr(num,num,new ArrayList<Integer>());
 
@@ -129,6 +129,7 @@ public class Combo {
             }
         }
     }
+
 
     public static BigInteger printTeX(int arr[]){
         BigInteger ans = BigInteger.ONE;
