@@ -11,7 +11,7 @@ public class Combo {
     static BigInteger finalAns = BigInteger.ZERO;
 
     public static void main(String[] args) {
-
+        //THEFAB FOURLENNONMCCARTNEYHARRISONSTARR, 8 for Data
         Scanner input  = new Scanner(System.in);
         System.out.println("Please enter the word");
         String str = input.nextLine();
