@@ -64,58 +64,6 @@ public class Combo {
         return (factorial(a).divide(factorial(b))).divide(factorial(a.subtract(b)));
     }
 
-    public static BigInteger perm(BigInteger a, BigInteger b){
-        return factorial(a).divide(factorial(a.subtract(b)));
-    }
-
-    public static BigInteger multinomial(BigInteger n, BigInteger[] arr){
-        BigInteger ans = factorial(n);
-        for (BigInteger i : arr
-             ) {
-            ans.divide(factorial(i));
-        }
-        return ans;
-    }
-
-    public static BigInteger print(int arr[]){
-        BigInteger ans = BigInteger.ONE;
-        String str = "";
-        int counter = 0;
-        for(int i=arr.length-1;i>0;i--){
-            if(arr[i]!=0){
-                if(i>= finalArr.length){
-                    return BigInteger.ZERO;
-                } else {
-                    if(arr[i]>finalArr[i].intValue()-counter){
-                        return BigInteger.ZERO;
-                    }else {
-                        str+=(finalArr[i].intValue()-counter)+"C"+arr[i]+"*";
-                        ans = ans.multiply(combo(BigInteger.valueOf((finalArr[i].intValue()-counter)),BigInteger.valueOf(arr[i])));
-                        counter+=arr[i];
-                    }
-                }
-            }
-
-
-        }
-        int total =0;
-        for(int i = 1;i<arr.length;i++){
-            total+=arr[i]*i;
-        }
-        str += total+"!";
-        ans = ans.multiply(factorial(BigInteger.valueOf(total)));
-        for(int i = 1;i<arr.length;i++){
-            for(int j = 0; j<arr[i];j++){
-                str+="/"+i+"!";
-                ans = ans.divide(factorial(BigInteger.valueOf(i)));
-            }
-        }
-        str += "=";
-        str += ans;
-        System.out.println(str);
-        return ans;
-    }
-
     public static void generateArr(int max, int total, ArrayList<Integer> arr){
         if(max==1){
             arr.add(0,total);
@@ -129,7 +77,6 @@ public class Combo {
             }
         }
     }
-
 
     public static BigInteger printTeX(int arr[]){
         BigInteger ans = BigInteger.ONE;
